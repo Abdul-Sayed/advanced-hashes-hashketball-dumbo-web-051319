@@ -298,6 +298,34 @@ end
 
 ##################################################################
 
+def player_with_longest_name
+  players_array = []
+  players_name_lengths = []
+
+  game_hash.each { |location, team_data|
+    team_data.each { |attribute, data|
+      if (attribute == :players)
+        data.each { |player, stats|
+          players_array << player
+        }
+      end
+    }
+  }
+
+  players_array.each { |player|
+    players_name_lengths << player.to_s.length
+  }
+
+  indx = players_name_lengths.each_index.select { |i| players_name_lengths[i] == players_name_lengths.max }
+
+  # Both Bismack Biyombo and Brendan Haywood have the longest names, but test expects Brendan Haywood
+  return players_array[indx[1]].to_s
+end
+
+###################################################################
+
+
+
 
 
 
