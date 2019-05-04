@@ -260,6 +260,44 @@ end
 
 #####################################################################
 
+def winning_team
+  teams_array = []
+  players_array = []
+  points_array = []
+
+  game_hash.each { |location, team_data|
+    team_data.each { |attribute, data|
+      if (attribute == :team_name)
+        teams_array << team_data[:team_name]
+      end
+      if (attribute == :players)
+        data.each { |player, stats|
+          players_array << player
+          points_array << stats[:points]
+        }
+      end
+    }
+  }
+
+  team1_points = 0
+  for i in (1..(points_array.length / 2))
+    team1_points += points_array[i - 1]
+  end
+
+  team2_points = 0
+  for i in (((points_array.length / 2) + 1)..points_array.length)
+    team2_points += points_array[i - 1]
+  end
+
+  if (team1_points > team2_points)
+    return teams_array[0]
+  elsif (team2_points > team1_points)
+    return teams_array[1]
+  end
+end
+
+##################################################################
+
 
 
 
