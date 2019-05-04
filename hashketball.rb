@@ -324,6 +324,28 @@ end
 
 ###################################################################
 
+def long_name_steals_a_ton?
+  players_array = []
+  steals_array = []
+
+  game_hash.each { |location, team_data|
+    team_data.each { |attribute, data|
+      if (attribute == :players)
+        data.each { |player, stats|
+          players_array << player
+          steals_array << stats[:steals]
+        }
+      end
+    }
+  }
+
+  player_name = players_array[steals_array.index(steals_array.max)]
+
+  if (player_name.to_s == player_with_longest_name)
+    return true
+  else return false   end
+end
+
 
 
 
